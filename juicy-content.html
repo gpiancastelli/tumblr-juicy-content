@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<title>{Title}{block:SearchPage} &mdash; Search results for: {SearchQuery}{/block:SearchPage}{block:PostSummary} &mdash; {PostSummary}{/block:PostSummary}</title>
+<meta charset="utf-8">
+{block:Description}<meta name="description" content="{MetaDescription}">{/block:Description}
+<link href="{RSS}" rel="alternate" title="RSS" type="application/rss+xml">
+<link rel="shortcut icon" href="{Favicon}">
+<style type="text/css">
+body { background: white; font-family: "Hoefler Text", Georgia, serif; margin: 0 auto 0 auto; padding: 0; width: 600px; line-height: 1.556; }
+h1, h2, h3 { font-family: "Lucida Grande", "Lucida Sans Unicode", Verdana, sans-serif; }
+h1 { text-transform: uppercase; margin-top: 0; color: rgb(247,247,252); }
+h2 { text-align: center; }
+a { color: black; }
+h1 a { color: inherit; }
+a:hover { color: orange; }
+form p { margin-top: 0px; margin-bottom: 0px; }
+.post { margin-bottom: 40px; padding-left: 20px; padding-right: 20px; }
+input { border: 1px solid black; color:#444; }
+#footer { background: orange url(orange.jpg) no-repeat top right; height: 225px; padding-bottom: 20px; }
+h1 a, #footer a, .date a { text-decoration: none; }
+h1 a:hover, #footer a:hover { color: inherit; }
+#meta { padding-top: 10px; padding-left: 20px; }
+#meta img { float: left; margin-right: 15px; }
+#links { font-family: "Lucida Grande", "Lucida Sans Unicode", Verdana, sans-serif; }
+#links p { margin-bottom: 15px; margin-top: 10px; }
+#navigation { font-family: "Lucida Grande", "Lucida Sans Unicode", Verdana, sans-serif; }
+.quote .text { font-size: 175%; margin-bottom: 0; }
+.quoted { font-size: 34px; }
+.quote .source { margin-top: 10px; }
+.conversation ul { list-style-type: none; margin-left: -1.5em; }
+.label { font-variant: small-caps; margin-right: 16px; }
+.photo > p { text-align: center; margin: 0; padding: 0; }
+.photo img { border: 1px solid black; }
+.video > p { text-align: center; }
+.date { font-family: "Lucida Grande", "Lucida Sans Unicode", Verdana, sans-serif; font-size: 80%; font-variant: small-caps; }
+{block:SearchPage}
+#searchresults { border-bottom: 1px dotted orange; }
+{/block:SearchPage}
+{block:NoSearchResults}
+.searchresultcount { display: none; }
+{/block:NoSearchResults}
+{block:Pagination}
+#no-navigation { display: none; }
+{/block:Pagination}
+{CustomCSS}
+</style>
+<body>
+
+<h1><a href="/">{Title}</a></h1>
+
+{block:SearchPage}
+<p id="searchresults" class="searchresultcount">Your search for <b>{SearchQuery}</b> returned {SearchResultCount} result(s)</p>
+{/block:SearchPage}
+            
+{block:NoSearchResults}
+<p id="searchresults">Your search for <b>{SearchQuery}</b> returned no results</p>
+{/block:NoSearchResults}
+
+{block:Posts}
+<div class="post">
+
+{block:Quote}
+<div class="quote">
+<p class="text"><span class="quoted">&#x275D;</span> {Quote}</p>
+{block:Source}
+<p class="source">{Source}</p> 
+{/block:Source}
+</div>
+<p class="date">(<a href="{Permalink}" title="permalink">&rarr;</a> {DayOfMonth} {Month} {Year})</p>
+{/block:Quote}
+
+{block:Chat}
+<div class="conversation">
+{block:Title}<h2>{Title}</h2>{/block:Title}
+<ul>
+{block:Lines}
+<li>{block:Label}<span class="label">{Label}</span>{/block:Label}
+{Line}</li>
+{/block:Lines}
+</ul>
+</div>
+<p class="date">(<a href="{Permalink}" title="permalink">&rarr;</a> {DayOfMonth} {Month} {Year})</p>
+{/block:Chat}
+
+{block:Link}
+<div class="link">
+<a href="{URL}" {Target} class="link">{Name}</a>
+{block:Description}<div class="description">{Description}</div>{/block:Description}
+</div>
+<p class="date">(<a href="{Permalink}" title="permalink">&rarr;</a> {DayOfMonth} {Month} {Year})</p>
+{/block:Link}
+
+{block:Text}
+{block:Title}<h2>{Title}</h2>{/block:Title}
+{Body}
+<p class="date">(<a href="{Permalink}" title="permalink">&rarr;</a> {DayOfMonth} {Month} {Year})</p>
+{/block:Text}
+
+{block:Photo}
+<div class="photo">
+<p>{LinkOpenTag}<img src="{PhotoURL-500}" alt="{PhotoAlt}">{LinkCloseTag}</p>
+{block:Caption}<div class="caption">{Caption}</div>{/block:Caption}
+</div>
+<p class="date">(<a href="{Permalink}" title="permalink">&rarr;</a> {DayOfMonth} {Month} {Year})</p>
+{/block:Photo}
+
+{block:Audio}
+<div class="audio">
+{AudioPlayerBlack}
+{block:Caption}<div class="caption">{Caption}</div>{/block:Caption}
+</div>
+<p class="date">(<a href="{Permalink}" title="permalink">&rarr;</a> {DayOfMonth} {Month} {Year})</p>
+{/block:Audio}
+
+{block:Video}
+<div class="video">
+<p>{Video-500}</p>
+{block:Caption}<div class="caption">{Caption}</div>{/block:Caption}
+</div>
+<p class="date">(<a href="{Permalink}" title="permalink">&rarr;</a> {DayOfMonth} {Month} {Year})</p>
+{/block:Video}
+
+</div>
+{/block:Posts}
+
+<div id="footer">
+  <div id="meta">
+    <div id="links">
+      <p id="no-navigation">&nbsp;
+      {block:Pagination}
+      <p id="navigation">
+      {block:NextPage}<a href="{NextPage}">back</a>{/block:NextPage} {block:PreviousPage}{block:NextPage}/{/block:NextPage}{/block:PreviousPage} {block:PreviousPage}<a href="{PreviousPage}">forward</a>{/block:PreviousPage}
+      {/block:Pagination}
+      <p><a href="/archive">archive</a>
+      <p><a href="/random">random</a>
+      <p><a href="mailto:">contact</a>
+      <p style="margin-bottom:0px;">&nbsp;
+    </div>
+    <div>
+      <form action="/search" method="get">
+        <p><input type="text" id="search" name="q" size="20" value="{SearchQuery}" placeholder="Search..."/></p>
+      </form>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
